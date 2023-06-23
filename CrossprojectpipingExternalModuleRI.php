@@ -697,17 +697,17 @@ class CrossprojectpipingExternalModuleRI extends AbstractExternalModule
 								var ajaxCountLimit = 0;
 								// console.log('++cppAjaxConnections = '+cppAjaxConnections);
 								$.post(url, {
-									thisrecord: '<?= $_GET['id'] ?>',
-									thispid: <?= $_GET['pid'] ?>,
-									thiseid: "<?= $_GET['event_id'] ?>",
-									thisform: "<?= $_GET['page'] ?>",
+									thisrecord: '<?= htmlspecialchars($_GET['id'], ENT_QUOTES) ?>',
+									thispid: <?= htmlspecialchars($_GET['pid'], ENT_QUOTES) ?>,
+									thiseid: "<?= htmlspecialchars($_GET['event_id'], ENT_QUOTES) ?>",
+									thisform: "<?= htmlspecialchars($_GET['page'], ENT_QUOTES) ?>",
 									thismatch: match[field]['params'],
 									matchsource: matchSourceParam,
 									getlabel: getLabel,
 									otherpid: nodes[0],
 									otherlogic: remaining,
 									choices: JSON.stringify(choices),
-									thisinstance: '<?= $_GET['instance'] ?>'
+									thisinstance: '<?= htmlspecialchars($_GET['instance'], ENT_QUOTES) ?>'
 									},
 									function(data) {
 									if(data.length && typeof(data) == 'string' && data.indexOf('multiple browser tabs of the same REDCap page. If that is not the case') >= 0) {
