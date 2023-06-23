@@ -1,12 +1,12 @@
 <?php
-namespace Vanderbilt\CrossprojectpipingExternalModule;
+namespace Vanderbilt\CrossprojectpipingExternalModuleRI;
 
 use ExternalModules\AbstractExternalModule;
 use ExternalModules\ExternalModules;
 
 require_once dirname(__FILE__) . '/hooks_common.php';
 
-class CrossprojectpipingExternalModule extends AbstractExternalModule
+class CrossprojectpipingExternalModuleRI extends AbstractExternalModule
 {
 	public $pipingMode;
 	public $pipeOnStatus;
@@ -376,7 +376,7 @@ class CrossprojectpipingExternalModule extends AbstractExternalModule
 				}
 			}
 		}
-
+		
 		// See if the term defined in this hook is used on this page
 		if (!isset($hook_functions[$term])) {
 			hook_log ("Skipping $term on $instrument of $project_id - not used.", "DEBUG");
@@ -402,7 +402,6 @@ class CrossprojectpipingExternalModule extends AbstractExternalModule
 				$cachedDataDictionaries[$otherpid] = \REDCap::getDataDictionary($otherpid, 'array');
 			}
 			$metadata = $cachedDataDictionaries[$otherpid];
-
 			if (count($nodes) == 2) {
 				$fieldName = $nodes[1];
 			} else {
@@ -697,10 +696,21 @@ class CrossprojectpipingExternalModule extends AbstractExternalModule
 								cppAjaxConnections++;
 								var ajaxCountLimit = 0;
 								// console.log('++cppAjaxConnections = '+cppAjaxConnections);
-								//console.log(url);
-								$.post(url, { thisrecord: '<?= htmlspecialchars($_GET['id'], ENT_QUOTES) ?>', thispid: <?= intval($_GET['pid']) ?>, thisinstance: <?= intval($repeat_instance) ?>, thismatch: match[field]['params'], matchsource: matchSourceParam, getlabel: getLabel, otherpid: nodes[0], otherlogic: remaining, choices: JSON.stringify(choices) }, function(data) {
-                                    //console.log(data);
-									if(data.length && typeof(data) == 'string' && data.indexOf(<?=json_encode(\RCView::tt("dataqueries_352"))?>) >= 0) {
+								$.post(url, {
+									thisrecord: '<?= $_GET['id'] ?>',
+									thispid: <?= $_GET['pid'] ?>,
+									thiseid: "<?= $_GET['event_id'] ?>",
+									thisform: "<?= $_GET['page'] ?>",
+									thismatch: match[field]['params'],
+									matchsource: matchSourceParam,
+									getlabel: getLabel,
+									otherpid: nodes[0],
+									otherlogic: remaining,
+									choices: JSON.stringify(choices),
+									thisinstance: '<?= $_GET['instance'] ?>'
+									},
+									function(data) {
+									if(data.length && typeof(data) == 'string' && data.indexOf('multiple browser tabs of the same REDCap page. If that is not the case') >= 0) {
 										if(ajaxCountLimit >= 1000) {
 											return;
 										}

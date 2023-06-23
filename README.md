@@ -1,5 +1,4 @@
 
-
 # Cross Project Piping - External Module
 <h2 style='color: #33B9FF;'>Configure Cross Project Piping</h2>
 This module must be enabled on the DESTINATION project. Once enabled the configuration is done with in the
@@ -64,13 +63,10 @@ The status can always be reverted to incomplete to utilize this function.</span>
 ![This picture shows the Piping Mode setting (with Piping Button selected)](/docs/readme_img_9.png)
 
 <span style='color: #ff0000; font-size: 1.25rem;'>Please note that if cross project piping is used there is a risk of overwriting data
-in an instrument. Any record saved with data on it whether piped or not will save on that record.</span>
+in an instrument. Any record saved with data on it weather piped or not will save on that record.</span>
 
 <h3 style='color: #33B9FF;'>Support for Repeating Instances</h3>
 This module supports repeating instances in the following way:
 'Unique Match Field' and 'Destination Field' settings may both (or either) be set to fields that exist in repeating instruments of the destination project.
 
 The module cannot, however, support configurations that require the 'Alternate Source Match Field' or 'Source Field' settings to point to fields that exist in repeating instruments.
-
-### Note: Field Embedding
-The Cross-Project Piping module may not work correctly when interacting with embedded fields.
